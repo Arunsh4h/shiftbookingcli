@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { Fragment } from "react";
 
-const TabBar = ({ tabAttributes, setTab }) => {
+const TabBar = ({ tabAttributes, setTab, activeTab }) => {
   return (
     <View style={styles.container}>
       {tabAttributes.map((e, i) => (
@@ -11,7 +11,12 @@ const TabBar = ({ tabAttributes, setTab }) => {
               setTab(e.name);
             }}
           >
-            <Text style={styles.tabText}>
+            <Text
+              style={{
+                ...styles.tabText,
+                color: activeTab === e.name ? "blue" : "gray",
+              }}
+            >
               {e.name} ({e.count})
             </Text>
           </TouchableOpacity>
@@ -35,6 +40,5 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "blue",
   },
 });

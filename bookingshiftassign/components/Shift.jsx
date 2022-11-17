@@ -8,11 +8,11 @@ import axios from "axios";
 const Shift = ({ from, to, desc, status, id, setIsActionTriggered }) => {
   const [shiftStatus, setShiftStatus] = useState(status);
   const handleBooking = async () => {
-    console.log("id", id)
+    console.log("id", id);
     if (!shiftStatus) {
       bookShift(id)
         .then((res) => {
-          console.log(id)
+          console.log(id);
           let data = res.data;
           setShiftStatus(!shiftStatus);
         })
@@ -63,17 +63,26 @@ const Shift = ({ from, to, desc, status, id, setIsActionTriggered }) => {
         <TouchableOpacity
           style={{
             ...styles.cancelBtn,
-            borderColor: shiftStatus ? "#E2006A" : "#A4B8D3",
+            borderColor: shiftStatus
+              ? "#E2006A"
+              : Date.now() > from
+              ? "#A4B8D3"
+              : "green",
           }}
           onPress={() => {
             handleBooking();
           }}
+          disabled={Date.now() > from}
         >
           <Text
             style={{
               ...styles.cancelBtnTxt,
-
-              color: shiftStatus ? "#E2006A" : "#A4B8D3",
+              // color: Date.now() > from ? "#E2006A" : shiftStatus && "green",
+              color: shiftStatus
+                ? "#E2006A"
+                : Date.now() > from
+                ? "#A4B8D3"
+                : "green",
             }}
           >
             {shiftStatus ? "Cancel" : "Book"}

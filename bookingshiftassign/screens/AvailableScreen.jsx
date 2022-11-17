@@ -77,6 +77,7 @@ export default function AvailableScreen() {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
           <TabBar
+            activeTab={Area}
             setTab={setArea}
             tabAttributes={[
               {

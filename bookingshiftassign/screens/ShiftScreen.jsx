@@ -17,17 +17,23 @@ import { useIsFocused } from "@react-navigation/native";
 // import { ScrollView } from "react-native-gesture-handler";
 const url = "http://10.0.2.2:8080/shifts";
 // const url = "https://reactnative.dev/movies.json"
-const getMoviesFromApi = async (setShifts) => {
-  const res = await axios.get(url);
-  const bookedShift = res.data.filter((e) => e.booked);
-
-  setShifts([...bookedShift]);
-};
+import { totalShiftHrsCalculator } from "../utils/helper";
 
 const ShiftScreen = ({ navigation }) => {
   const [shifts, setShifts] = useState([]);
   const [isActionTriggered, setIsActionTriggered] = useState(false);
+  const [todayCount, setTodayCount] = useState(0);
+  const [todayTotalHrs, setTodayTotalHrs] = useState(0);
+
   useEffect(() => {
+    const getMoviesFromApi = async () => {
+      const res = await axios.get(url);
+      const bookedShift = res.data.filter((e) => e.booked);
+      setTodayCount(bookedShift.length);
+      setTodayTotalHrs(bookedShift.length);
+      const reversedShift = bookedShift.reverse();
+      setShifts([...reversedShift]);
+    };
     getMoviesFromApi(setShifts);
     // console.log(navigation.getId());
   }, [isActionTriggered]);
@@ -37,7 +43,12 @@ const ShiftScreen = ({ navigation }) => {
       <StatusBar />
       <ScrollView>
         <View>
-          <Heading title={"Today"} noOfShift={"2 shifts"} hrs={"4 h"} />
+          <Heading
+            title={"Today"}
+            noOfShift={todayCount}
+            hrs={totalShiftHrsCalculator(shifts)}
+            withTime={true}
+          />
 
           {shifts?.map((e, i) => (
             <Fragment key={i}>
