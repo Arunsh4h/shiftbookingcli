@@ -7,7 +7,7 @@ export default function ButtonBox({ onPress, title, isActive }) {
       <Text
         style={{
           ...styles.textBaseColor,
-          color: !isActive ? "#9a9b9b" : "blue",
+          color: !isActive ? "#9a9b9b" : "#007aff",
         }}
       >
         {title}

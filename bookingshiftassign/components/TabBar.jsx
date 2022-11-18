@@ -14,7 +14,7 @@ const TabBar = ({ tabAttributes, setTab, activeTab }) => {
             <Text
               style={{
                 ...styles.tabText,
-                color: activeTab === e.name ? "blue" : "gray",
+                color: activeTab === e.name ? "#007aff" : "gray",
               }}
             >
               {e.name} ({e.count})
