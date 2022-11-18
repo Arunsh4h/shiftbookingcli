@@ -48,6 +48,7 @@ const ShiftScreen = ({ navigation }) => {
     let myBookedShift = shifts.filter((e) => e.id !== id);
     setShifts(myBookedShift);
     console.log("shiftId: ", id);
+    setTodayCount(myBookedShift.length);
   };
 
   return (
