@@ -5,7 +5,15 @@ import { Colors } from "../constants/Colors";
 import { bookShift, cancelShift, convertMsToTime } from "../utils/helper";
 import axios from "axios";
 
-const Shift = ({ from, to, desc, status, id, setIsActionTriggered }) => {
+const Shift = ({
+  from,
+  to,
+  desc,
+  status,
+  id,
+  setIsActionTriggered,
+  handleIsActionTriggered,
+}) => {
   const [shiftStatus, setShiftStatus] = useState(status);
   const handleBooking = async () => {
     console.log("id", id);
@@ -25,6 +33,7 @@ const Shift = ({ from, to, desc, status, id, setIsActionTriggered }) => {
         .then((res) => {
           let data = res.data;
           setShiftStatus(!shiftStatus);
+          handleIsActionTriggered(id);
         })
         .catch((err) => {
           console.log("err", err.message);

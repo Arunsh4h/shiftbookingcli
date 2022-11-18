@@ -18,6 +18,7 @@ import { useIsFocused } from "@react-navigation/native";
 const url = "http://10.0.2.2:8080/shifts";
 // const url = "https://reactnative.dev/movies.json"
 import { totalShiftHrsCalculator } from "../utils/helper";
+import MyShiftItem from "../components/myshiftitem";
 
 const ShiftScreen = ({ navigation }) => {
   const [shifts, setShifts] = useState([]);
@@ -34,9 +35,20 @@ const ShiftScreen = ({ navigation }) => {
       const reversedShift = bookedShift.reverse();
       setShifts([...reversedShift]);
     };
-    getMoviesFromApi(setShifts);
+    getMoviesFromApi();
+
+    navigation.addListener("focus", () => {
+      getMoviesFromApi();
+    });
+
     // console.log(navigation.getId());
-  }, [isActionTriggered]);
+  }, []);
+
+  const handleIsActionTriggered = (id) => {
+    let myBookedShift = shifts.filter((e) => e.id !== id);
+    setShifts(myBookedShift);
+    console.log("shiftId: ", id);
+  };
 
   return (
     <SafeAreaView style={styles.backgroundStyle}>
@@ -52,10 +64,8 @@ const ShiftScreen = ({ navigation }) => {
 
           {shifts?.map((e, i) => (
             <Fragment key={i}>
-              <Shift
-                setIsActionTriggered={() =>
-                  setIsActionTriggered((prev) => !prev)
-                }
+              <MyShiftItem
+                handleIsActionTriggered={handleIsActionTriggered}
                 desc={e.area}
                 from={e.startTime}
                 to={e.endTime}
