@@ -45,7 +45,7 @@ export const cancelShift = async (shiftId) => {
 };
 
 export const totalShiftHrsCalculator = (shifts) => {
-  console.log("shifts-", shifts);
+  // console.log("shifts-", shifts);
   let totalHrs = 0;
   shifts.forEach(({ startTime, endTime }) => {
     const diff = Number(endTime) - Number(startTime);
