@@ -7,7 +7,7 @@ run
 3. npm start
  this will start the backend.
 
-#navigate back to bookingshift folder 
+#navigate back to bookingshift folder -
 run 
-npm install
-npx react-native run-android     
+1. npm install
+2. npx react-native run-android     
